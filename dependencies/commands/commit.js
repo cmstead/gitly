@@ -1,5 +1,7 @@
 function commit(
     addBuilder,
+    cliParser,
+    commitCliOptions,
     commitMessageOptions,
     commitBuilder,
     inquirer
@@ -11,10 +13,18 @@ function commit(
     }
 
     function getCommitMessage() {
+        console.log('\n');
         return inquirer.prompt(commitMessageOptions);
     }
 
     function commit(args) {
+        const parsedCommitData = cliParser
+            .parseSecondaryCommands(
+                commitCliOptions,
+                args
+            );
+
+        console.log(parsedCommitData);
         if (args === undefined || args.length === 0) {
 
             getCommitMessage()
@@ -27,7 +37,7 @@ function commit(
         } else {
 
             commitFiles({
-                message: args[0]
+                message: parsedCommitData._unknown[0]
             });
 
         }

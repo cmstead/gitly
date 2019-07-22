@@ -1,7 +1,7 @@
 function mainCliOptions() {
     return [
         {
-            name: 'command',
+            name: 'commit',
             default: true
         }
     ];

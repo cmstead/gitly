@@ -1,5 +1,11 @@
 function commitCliOptions() {
-    return [];
+    return [
+        {
+            name: 'view-diff',
+            type: Boolean,
+            defaultOption: false
+        }
+    ];
 }
 
 module.exports = commitCliOptions;
