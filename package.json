@@ -1,0 +1,29 @@
+{
+  "name": "gitly",
+  "version": "1.0.0",
+  "description": "Gitly is a wrapper over the Git CLI to friendlify day-to-day git interaction",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmstead/gitly.git"
+  },
+  "keywords": [
+    "git",
+    "cli"
+  ],
+  "author": "Chris Stead",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/cmstead/gitly/issues"
+  },
+  "homepage": "https://github.com/cmstead/gitly#readme",
+  "dependencies": {
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.0.2",
+    "dject": "^1.14.2",
+    "inquirer": "^6.5.0"
+  }
+}
