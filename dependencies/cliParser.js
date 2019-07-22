@@ -2,13 +2,15 @@ function cliParser(
     commandLineArgs
 ) {
 
-    function parseMainCommands(parserOptions) {
+    function parseMainCommands() {
         const parsedCommand = commandLineArgs(
             [],
             { stopAtFirstUnknown: true }
         );
 
-        const [commandName, ...commandArgs] = parsedCommand._unknown;
+        const [commandName, ...commandArgs] = parsedCommand._unknown
+            ? parsedCommand._unknown
+            : [];
 
         return {
             command: commandName,

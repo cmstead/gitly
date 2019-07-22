@@ -1,7 +1,11 @@
 function commandExecutor(childProcess) {
     return function (commandTokens) {
         return function () {
-            childProcess.execSync(commandTokens.join(' '));
+            const command = commandTokens.join(' ');
+
+            console.log(`Executing command: ${command}`)
+
+            childProcess.execSync(command);
         }
     }
 }

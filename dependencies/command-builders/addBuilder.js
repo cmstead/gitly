@@ -2,7 +2,7 @@ function addBuilder(
     commandExecutor
 ) {
     function build({
-        addAll = true
+        addAll = false
     }) {
         let commandTokens = ['git', 'add'];
 
