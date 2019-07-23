@@ -1,4 +1,4 @@
-function commitMessageOptions() {
+function commitOptions() {
     return [
         {
             name: 'commitTitle',
@@ -10,4 +10,4 @@ function commitMessageOptions() {
     ];
 }
 
-module.exports = commitMessageOptions;
+module.exports = commitOptions;

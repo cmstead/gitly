@@ -1,7 +1,7 @@
 function commitCliOptions() {
     return [
         {
-            name: 'view-diff',
+            name: 'by-differences',
             type: Boolean,
             defaultOption: false
         }

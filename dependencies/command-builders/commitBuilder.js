@@ -9,6 +9,7 @@ function commitBuilder(
 
         let commandTokens = ['git', 'commit'];
 
+        
         if(commitAll) {
             commandTokens.push('--all');
         }

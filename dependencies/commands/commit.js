@@ -2,7 +2,7 @@ function commit(
     addBuilder,
     cliParser,
     commitCliOptions,
-    commitMessageOptions,
+    commitOptions,
     commitBuilder,
     inquirer
 ) {
@@ -12,35 +12,37 @@ function commit(
         commitBuilder.build(args)();
     }
 
-    function getCommitMessage() {
+    function getCommitOptions() {
         console.log('\n');
-        return inquirer.prompt(commitMessageOptions);
+        return inquirer.prompt(commitOptions);
     }
 
-    function commit(args) {
+    function commitByMenu(_) {
+        getCommitOptions()
+            .then(function (data) {
+                commitFiles({
+                    message: data.commitTitle
+                });
+            });
+    }
+
+    function commitDirectly(args) {
         const parsedCommitData = cliParser
             .parseSecondaryCommands(
                 commitCliOptions,
                 args
             );
 
-        console.log(parsedCommitData);
-        if (args === undefined || args.length === 0) {
+        commitFiles({
+            message: parsedCommitData._unknown[0]
+        });
+    }
 
-            getCommitMessage()
-                .then(function ({ commitTitle }) {
-                    commitFiles({
-                        message: commitTitle
-                    });
-                });
+    function commit(args) {
+        const argsAreSet = args !== undefined && args.length > 0;
+        const commitMethod = argsAreSet ? commitDirectly : commitByMenu;
 
-        } else {
-
-            commitFiles({
-                message: parsedCommitData._unknown[0]
-            });
-
-        }
+        commitMethod(args);
     }
 
     return commit;
