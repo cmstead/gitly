@@ -10,6 +10,7 @@ function commitOptions() {
         {
             name: 'commitSelected',
             message: 'Commit:',
+            type: 'list',
             choices: ['All files', 'Selected files']
         }
     ];
