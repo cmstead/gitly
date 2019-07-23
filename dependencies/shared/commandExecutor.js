@@ -5,7 +5,7 @@ function commandExecutor(childProcess) {
 
             console.log(`Executing command: ${command}`)
 
-            childProcess.execSync(command);
+            return childProcess.execSync(command, { encoding: 'utf8' });
         }
     }
 }

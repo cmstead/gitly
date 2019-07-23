@@ -4,7 +4,8 @@ function commit(
     commitCliOptions,
     commitOptions,
     commitBuilder,
-    inquirer
+    inquirer,
+    statusBuilder
 ) {
 
     function commitFiles(args) {
@@ -26,6 +27,12 @@ function commit(
             });
     }
 
+    function getAllUncommittedFiles() {
+        const uncommittedFiles = statusBuilder.build({ short: true})();
+
+        console.log(uncommittedFiles);
+    }
+
     function commitDirectly(args) {
         const parsedCommitData = cliParser
             .parseSecondaryCommands(
@@ -39,6 +46,8 @@ function commit(
     }
 
     function commit(args) {
+        // getAllUncommittedFiles();
+
         const argsAreSet = args !== undefined && args.length > 0;
         const commitMethod = argsAreSet ? commitDirectly : commitByMenu;
 
