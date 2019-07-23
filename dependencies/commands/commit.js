@@ -24,11 +24,14 @@ function commit(
                 commitFiles({
                     message: data.commitTitle
                 });
+            })
+            .catch(function (error) {
+                console.log('An error occurred while committing your files: ', error.message);
             });
     }
 
     function getAllUncommittedFiles() {
-        const uncommittedFiles = statusBuilder.build({ short: true})();
+        const uncommittedFiles = statusBuilder.build({ short: true })();
 
         console.log(uncommittedFiles);
     }

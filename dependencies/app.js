@@ -17,15 +17,18 @@ function app(
     function displayMenu() {
         inquirer
             .prompt(mainMenuOptions)
-            .then(function(data) {
+            .then(function (data) {
                 const commandOption = data.command;
                 const commandName = commandDictionary[commandOption];
 
                 commandFactory(commandName)();
+            })
+            .catch(function (error) {
+                console.log('An unexpected error occurred from the main menu: ', error.message);
             });
     }
 
-    if(typeof command === 'string') {
+    if (typeof command === 'string') {
         commandFactory(command)(commandArgs);
     } else {
         displayMenu();
