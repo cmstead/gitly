@@ -19,7 +19,9 @@ function commitBuilder(
         }
 
 
-        return commandExecutor(commandTokens);
+        return commandExecutor({
+            commandTokens: commandTokens
+        });
     }
 
     return {

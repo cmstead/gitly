@@ -5,12 +5,33 @@ function commit(
     commitOptions,
     commitBuilder,
     inquirer,
-    statusBuilder
+    statusBuilder,
+    uncommittedFileSelect
 ) {
 
-    function commitFiles(args) {
+    function addSelectedFiles() {
+        const uncommittedFiles = getAllUncommittedFiles();
+
+        uncommittedFileSelect.choices = uncommittedFiles;
+
+        inquirer
+            .prompt(uncommittedFileSelect)
+            .then(function(data) {
+                addBuilder.build({ files: data.selectedFiles })();
+            });
+    }
+
+    function addAllFiles() {
         addBuilder.build({ addAll: true })();
-        commitBuilder.build(args)();
+
+        return Promise.resolve(true);
+    }
+
+    function commitFiles(args) {
+        addAllFiles()
+            .then(function () {
+                commitBuilder.build(args)();
+            });
     }
 
     function getCommitOptions() {
@@ -18,7 +39,7 @@ function commit(
         return inquirer.prompt(commitOptions);
     }
 
-    function commitByMenu(_) {
+    function commitByMenu(_, onComplete) {
         getCommitOptions()
             .then(function (data) {
                 commitFiles({
@@ -27,13 +48,22 @@ function commit(
             })
             .catch(function (error) {
                 console.log('An error occurred while committing your files: ', error.message);
+                onComplete();
             });
     }
 
     function getAllUncommittedFiles() {
-        const uncommittedFiles = statusBuilder.build({ short: true })();
+        const statusOptions = {
+            short: true,
+            showCommand: false
+        };
 
-        console.log(uncommittedFiles);
+        const uncommittedFiles = statusBuilder.build(statusOptions)();
+
+        return uncommittedFiles
+            .split(/(\r\n|\r|\n)/ig)
+            .map(filePath => filePath.slice(3))
+            .filter(filePath => filePath !== '');
     }
 
     function commitDirectly(args) {
@@ -48,13 +78,11 @@ function commit(
         });
     }
 
-    function commit(args) {
-        // getAllUncommittedFiles();
-
+    function commit(args, onComplete = () => null) {
         const argsAreSet = args !== undefined && args.length > 0;
         const commitMethod = argsAreSet ? commitDirectly : commitByMenu;
 
-        commitMethod(args);
+        commitMethod(args, onComplete);
     }
 
     return commit;

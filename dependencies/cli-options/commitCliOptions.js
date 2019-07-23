@@ -1,7 +1,7 @@
 function commitCliOptions() {
     return [
         {
-            name: 'by-differences',
+            name: 'by-filename',
             type: Boolean,
             defaultOption: false
         }

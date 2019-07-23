@@ -10,7 +10,9 @@ function addBuilder(
             commandTokens.push('--all');
         }
 
-        return commandExecutor(commandTokens);
+        return commandExecutor({
+            commandTokens: commandTokens
+        });
     }
 
     return {

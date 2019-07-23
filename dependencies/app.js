@@ -21,7 +21,7 @@ function app(
                 const commandOption = data.command;
                 const commandName = commandDictionary[commandOption];
 
-                commandFactory(commandName)();
+                commandFactory(commandName)([], displayMenu);
             })
             .catch(function (error) {
                 console.log('An unexpected error occurred from the main menu: ', error.message);

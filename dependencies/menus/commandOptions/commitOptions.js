@@ -6,6 +6,11 @@ function commitOptions() {
             validate: function(message) {
                 return message.length > 0 && message.length <= 50;
             }
+        },
+        {
+            name: 'commitSelected',
+            message: 'Commit:',
+            choices: ['All files', 'Selected files']
         }
     ];
 }
