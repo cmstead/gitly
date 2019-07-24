@@ -26,11 +26,11 @@ function commit(
     function addSelectedFiles() {
         const uncommittedFiles = getAllUncommittedFiles();
 
-        uncommittedFileSelect.choices = uncommittedFiles;
+        uncommittedFileSelect[0].choices = uncommittedFiles;
 
-        inquirer
+        return inquirer
             .prompt(uncommittedFileSelect)
-            .then(function(data) {
+            .then(function (data) {
                 addBuilder.build({ files: data.selectedFiles })();
             });
     }
@@ -42,9 +42,16 @@ function commit(
     }
 
     function commitFiles(args) {
-        addAllFiles()
+        const addFileAction = args.fileAddMethod !== 'Selected files'
+            ? addAllFiles
+            : addSelectedFiles;
+
+        addFileAction()
             .then(function () {
                 commitBuilder.build(args)();
+            })
+            .catch(function(error) {
+                console.log('Unable to complete commit:', error.message)
             });
     }
 
@@ -56,10 +63,10 @@ function commit(
     function commitByMenu(_, onComplete) {
         getCommitOptions()
             .then(function (data) {
-                console.log(data);
-                // commitFiles({
-                //     message: data.commitTitle
-                // });
+                commitFiles({
+                    message: data.commitTitle,
+                    fileAddMethod: data.commitSelected
+                });
             })
             .catch(function (error) {
                 console.log('An error occurred while committing your files: ', error.message);
