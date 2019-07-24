@@ -9,6 +9,20 @@ function commit(
     uncommittedFileSelect
 ) {
 
+    function getAllUncommittedFiles() {
+        const statusOptions = {
+            short: true,
+            showCommand: false
+        };
+
+        const uncommittedFiles = statusBuilder.build(statusOptions)();
+
+        return uncommittedFiles
+            .split(/(\r\n|\r|\n)/ig)
+            .map(filePath => filePath.slice(3))
+            .filter(filePath => filePath !== '');
+    }
+
     function addSelectedFiles() {
         const uncommittedFiles = getAllUncommittedFiles();
 
@@ -42,28 +56,15 @@ function commit(
     function commitByMenu(_, onComplete) {
         getCommitOptions()
             .then(function (data) {
-                commitFiles({
-                    message: data.commitTitle
-                });
+                console.log(data);
+                // commitFiles({
+                //     message: data.commitTitle
+                // });
             })
             .catch(function (error) {
                 console.log('An error occurred while committing your files: ', error.message);
                 onComplete();
             });
-    }
-
-    function getAllUncommittedFiles() {
-        const statusOptions = {
-            short: true,
-            showCommand: false
-        };
-
-        const uncommittedFiles = statusBuilder.build(statusOptions)();
-
-        return uncommittedFiles
-            .split(/(\r\n|\r|\n)/ig)
-            .map(filePath => filePath.slice(3))
-            .filter(filePath => filePath !== '');
     }
 
     function commitDirectly(args) {
