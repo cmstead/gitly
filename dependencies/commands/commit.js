@@ -81,6 +81,8 @@ function commit(
                 args
             );
 
+        console.log(parsedCommitData);
+
         commitFiles({
             message: parsedCommitData._unknown[0],
             fileAddMethod: Boolean(parsedCommitData['by-filename'])
