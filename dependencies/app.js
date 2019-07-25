@@ -18,10 +18,14 @@ function app(
         inquirer
             .prompt(mainMenuOptions)
             .then(function (data) {
-                const commandOption = data.command.split(' (')[0];
-                const commandName = commandDictionary[commandOption];
+                if (data.command.toLowerCase() === 'exit') {
+                    process.exit(0);
+                } else {
+                    const commandOption = data.command.split(' (')[0];
+                    const commandName = commandDictionary[commandOption];
 
-                commandFactory(commandName)([], displayMenu);
+                    commandFactory(commandName)([], displayMenu);
+                }
             })
             .catch(function (error) {
                 console.log('An unexpected error occurred from the main menu: ', error.message);

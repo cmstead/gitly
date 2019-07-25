@@ -12,7 +12,7 @@ function mainMenuOptions(commandDictionary) {
             name: 'command',
             message: 'What would you like to do',
             type: 'list',
-            choices: buildChoices()
+            choices: buildChoices().concat('Exit')
         }
     ];
 }
