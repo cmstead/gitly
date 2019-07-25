@@ -11,7 +11,11 @@ function commitOptions() {
             name: 'commitSelected',
             message: 'Commit:',
             type: 'list',
-            choices: ['All files', 'Selected files']
+            choices: [
+                'All files',
+                'Selected files',
+                'Files by file difference'
+            ]
         }
     ];
 }

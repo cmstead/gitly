@@ -44,9 +44,9 @@ function commit(
     }
 
     function chooseFileAddAction(fileAddMethod) {
-        if(fileAddMethod === 'All files') {
+        if (fileAddMethod === 'All files') {
             return addAllFiles;
-        } else if(fileAddMethod === 'Selected files') {
+        } else if (fileAddMethod === 'Selected files') {
             return addSelectedFiles;
         } else {
             return () => Promise.resolve(true);
@@ -70,13 +70,25 @@ function commit(
         return inquirer.prompt(commitOptions);
     }
 
+    function buildCommitOptions(data) {
+        let options = {
+            message: data.commitTitle,
+            fileAddMethod: data.commitSelected
+        };
+
+        if (data.commitSelected === 'Files by file difference') {
+            options.commitByFileDiff = true;
+        }
+
+        return options;
+    }
+
     function commitByMenu(_, onComplete) {
         getCommitOptions()
             .then(function (data) {
-                commitFiles({
-                    message: data.commitTitle,
-                    fileAddMethod: data.commitSelected
-                });
+                const options = buildCommitOptions(data);
+
+                commitFiles(options);
             })
             .catch(function (error) {
                 console.log('An error occurred while committing your files: ', error.message);
@@ -88,9 +100,9 @@ function commit(
         const byFilename = Boolean(parsedCommitData['by-filename']);
         const byFileDiff = Boolean(parsedCommitData['by-file-difference']);
 
-        if(byFilename) {
+        if (byFilename) {
             return 'Selected files';
-        } else if(!byFileDiff) {
+        } else if (!byFileDiff) {
             return 'All files';
         } else {
             return null;
