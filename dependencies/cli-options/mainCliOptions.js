@@ -3,6 +3,10 @@ function mainCliOptions() {
         {
             name: 'commit',
             default: true
+        },
+        {
+            name: 'pull',
+            default: true
         }
     ];
 }

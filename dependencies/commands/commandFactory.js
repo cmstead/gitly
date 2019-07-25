@@ -1,9 +1,14 @@
 function commandFactory(
-    commit
+    commit,
+    pull
 ) {
-    return function (commandName) {
+    const commandRunners = {
+        commit,
+        pull
+    };
 
-        return commit;
+    return function (commandName) {
+        return commandRunners[commandName.toLowerCase()];
     };
 }
 
