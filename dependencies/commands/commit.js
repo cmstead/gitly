@@ -58,19 +58,24 @@ function commit(
         }
     }
 
+    function extendedCommitAction(args) {
+        if(args.commitByFileDiff && getAllUnaddedFiles().length > 0) {
+            console.log('Loading new files to commit...');
+
+            args.commitByFileDiff = undefined;
+            args.fileAddMethod = 'Selected files';
+
+            commitFiles(args);
+        }
+    }
+
     function commitFiles(args) {
         const addFileAction = chooseFileAddAction(args.fileAddMethod);
 
         addFileAction()
             .then(function () {
                 commitBuilder.build(args)();
-
-                if(args.commitByFileDiff && getAllUnaddedFiles().length > 0) {
-                    args.commitByFileDiff = undefined;
-                    args.fileAddMethod = 'Selected files';
-
-                    commitFiles(args);
-                }
+                extendedCommitAction(args);
             })
             .catch(function (error) {
                 console.log('Unable to complete commit:', error.message)
