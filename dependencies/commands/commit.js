@@ -87,7 +87,7 @@ function commit(
 
         commitFiles({
             message: parsedCommitData._unknown[0],
-            fileAddMethod: Boolean(parsedCommitData['by-filename'])
+            fileAddMethod: fileAddMethod
         });
     }
 
