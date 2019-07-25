@@ -81,7 +81,9 @@ function commit(
                 args
             );
 
-        console.log(parsedCommitData);
+        const fileAddMethod = Boolean(parsedCommitData['by-filename'])
+                ? 'Selected files'
+                : 'All files';
 
         commitFiles({
             message: parsedCommitData._unknown[0],
