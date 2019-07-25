@@ -2,8 +2,11 @@ function commitCliOptions() {
     return [
         {
             name: 'by-filename',
-            type: Boolean,
-            defaultOption: false
+            type: Boolean
+        },
+        {
+            name: 'by-file-difference',
+            type: Boolean
         }
     ];
 }

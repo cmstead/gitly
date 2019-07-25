@@ -26,6 +26,8 @@ function commit(
     function addSelectedFiles() {
         const uncommittedFiles = getAllUncommittedFiles();
 
+        console.log('Committing files by filename');
+
         uncommittedFileSelect[0].choices = uncommittedFiles;
 
         return inquirer
@@ -41,10 +43,18 @@ function commit(
         return Promise.resolve(true);
     }
 
+    function chooseFileAddAction(fileAddMethod) {
+        if(fileAddMethod === 'All files') {
+            return addAllFiles;
+        } else if(fileAddMethod === 'Selected files') {
+            return addSelectedFiles;
+        } else {
+            return () => Promise.resolve(true);
+        }
+    }
+
     function commitFiles(args) {
-        const addFileAction = args.fileAddMethod !== 'Selected files'
-            ? addAllFiles
-            : addSelectedFiles;
+        const addFileAction = chooseFileAddAction(args.fileAddMethod);
 
         addFileAction()
             .then(function () {
@@ -75,9 +85,16 @@ function commit(
     }
 
     function selectFileAddMethod(parsedCommitData) {
-        return Boolean(parsedCommitData['by-filename'])
-            ? 'Selected files'
-            : 'All files';
+        const byFilename = Boolean(parsedCommitData['by-filename']);
+        const byFileDiff = Boolean(parsedCommitData['by-file-difference']);
+
+        if(byFilename) {
+            return 'Selected files';
+        } else if(!byFileDiff) {
+            return 'All files';
+        } else {
+            return null;
+        }
     }
 
     function commitDirectly(args) {
@@ -91,7 +108,8 @@ function commit(
 
         commitFiles({
             message: parsedCommitData._unknown[0],
-            fileAddMethod: fileAddMethod
+            fileAddMethod: fileAddMethod,
+            commitByFileDiff: parsedCommitData['by-file-difference']
         });
     }
 

@@ -4,7 +4,8 @@ function commitBuilder(
 
     function build({
         commitAll = false,
-        message = null
+        message = null,
+        commitByFileDiff = false
     }) {
 
         let commandTokens = ['git', 'commit'];
@@ -12,6 +13,8 @@ function commitBuilder(
         
         if(commitAll) {
             commandTokens.push('--all');
+        } else if(commitByFileDiff) {
+            commandTokens.push('--patch');
         }
 
         if(message !== null) {

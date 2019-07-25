@@ -1,7 +1,12 @@
 function commandExecutor(childProcess) {
 
     function executeCommand(command) {
-        return childProcess.execSync(command, { encoding: 'utf8' });
+        return childProcess.execSync(
+            command,
+            {
+                encoding: 'utf8',
+                stdio: 'inherit'
+            });
     }
 
     function displayCommand(command) {
