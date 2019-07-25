@@ -2,7 +2,8 @@ function statusBuilder(commandExecutor) {
 
     function build({
         short = false,
-        showCommand = true
+        showCommand = true,
+        showOutput = false
     }) {
 
         let commandTokens = ['git', 'status'];
@@ -13,7 +14,8 @@ function statusBuilder(commandExecutor) {
 
         return commandExecutor({
             commandTokens,
-            showCommand
+            showCommand,
+            stdioOption: showOutput
         });
 
     }

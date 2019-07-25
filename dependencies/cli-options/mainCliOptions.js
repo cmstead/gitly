@@ -7,6 +7,14 @@ function mainCliOptions() {
         {
             name: 'pull',
             default: true
+        },
+        {
+            name: 'push',
+            default: true
+        },
+        {
+            name: 'status',
+            default: true
         }
     ];
 }

@@ -12,9 +12,9 @@ function commitOptions() {
             message: 'Commit:',
             type: 'list',
             choices: [
-                'All files',
-                'Selected files',
-                'Files by file difference (Advanced)'
+                'All files (default behavior)',
+                'Selected files (--by-filename)',
+                'Files by file difference (--by-file-difference) [Advanced]'
             ]
         }
     ];

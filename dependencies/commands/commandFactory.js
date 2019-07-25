@@ -1,12 +1,14 @@
 function commandFactory(
     commit,
     pull,
-    push
+    push,
+    status
 ) {
     const commandRunners = {
         commit,
         pull,
-        push
+        push,
+        status
     };
 
     return function (commandName) {
