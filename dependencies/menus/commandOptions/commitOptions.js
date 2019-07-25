@@ -14,7 +14,7 @@ function commitOptions() {
             choices: [
                 'All files',
                 'Selected files',
-                'Files by file difference'
+                'Files by file difference (Advanced)'
             ]
         }
     ];

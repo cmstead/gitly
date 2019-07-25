@@ -9,6 +9,9 @@ function commitBuilder(
     }) {
 
         let commandTokens = ['git', 'commit'];
+        let stdioOption = commitByFileDiff
+            ? 'inherit'
+            : null;
 
         
         if(commitAll) {
@@ -23,7 +26,8 @@ function commitBuilder(
 
 
         return commandExecutor({
-            commandTokens: commandTokens
+            commandTokens: commandTokens,
+            stdioOption: stdioOption
         });
     }
 

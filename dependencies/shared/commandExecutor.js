@@ -1,12 +1,15 @@
 function commandExecutor(childProcess) {
 
-    function executeCommand(command) {
-        return childProcess.execSync(
-            command,
-            {
-                encoding: 'utf8',
-                stdio: 'inherit'
-            });
+    function executeCommand(command, stdioOption) {
+        let options = {
+            encoding: 'utf8'
+        }
+
+        if(typeof stdioOption === 'string') {
+            options.stdio = stdioOption;
+        }
+
+        return childProcess.execSync(command, options);
     }
 
     function displayCommand(command) {
@@ -27,14 +30,15 @@ function commandExecutor(childProcess) {
 
     return function ({
         commandTokens,
-        showCommand = true
+        showCommand = true,
+        stdioOption = null
     }) {
         return function () {
             let result = null;
 
             const actionSet = buildActionSet(showCommand);
             const command = commandTokens.join(' ');
-            const callAction = action => result = action(command);
+            const callAction = action => result = action(command, stdioOption);
 
             actionSet.forEach(callAction);
 

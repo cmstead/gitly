@@ -9,26 +9,31 @@ function commit(
     uncommittedFileSelect
 ) {
 
-    function getAllUncommittedFiles() {
+    function isNotAdded(fileInfo) {
+        return (/[m\?]/i).test(fileInfo[1]);
+    }
+
+    function getAllUnaddedFiles() {
         const statusOptions = {
             short: true,
             showCommand: false
         };
 
         const uncommittedFiles = statusBuilder.build(statusOptions)();
+        const uncommittedTokens = uncommittedFiles.split(/(\r\n|\r|\n)/ig);
 
-        return uncommittedFiles
-            .split(/(\r\n|\r|\n)/ig)
+        return uncommittedTokens
+            .filter(isNotAdded)
             .map(filePath => filePath.slice(3))
             .filter(filePath => filePath !== '');
     }
 
     function addSelectedFiles() {
-        const uncommittedFiles = getAllUncommittedFiles();
+        const unaddedFiles = getAllUnaddedFiles();
 
         console.log('Committing files by filename');
 
-        uncommittedFileSelect[0].choices = uncommittedFiles;
+        uncommittedFileSelect[0].choices = unaddedFiles;
 
         return inquirer
             .prompt(uncommittedFileSelect)
@@ -59,6 +64,13 @@ function commit(
         addFileAction()
             .then(function () {
                 commitBuilder.build(args)();
+
+                if(args.commitByFileDiff && getAllUnaddedFiles().length > 0) {
+                    args.commitByFileDiff = undefined;
+                    args.fileAddMethod = 'Selected files';
+
+                    commitFiles(args);
+                }
             })
             .catch(function (error) {
                 console.log('Unable to complete commit:', error.message)
@@ -71,12 +83,14 @@ function commit(
     }
 
     function buildCommitOptions(data) {
+        const fileCommitSelection = data.commitSelected.split(' (')[0];
+
         let options = {
             message: data.commitTitle,
-            fileAddMethod: data.commitSelected
+            fileAddMethod: fileCommitSelection
         };
 
-        if (data.commitSelected === 'Files by file difference') {
+        if (fileCommitSelection === 'Files by file difference') {
             options.commitByFileDiff = true;
         }
 
