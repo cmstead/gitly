@@ -1,8 +1,8 @@
 function commandDictionary() {
     return {
-        'Commit your source code': 'commit',
+        'Save your changes to git': 'commit',
         'Get latest changes from remote': 'pull',
-        'Save latest changes to remote': 'push',
+        'Upload latest changes to remote': 'push',
     };
 }
 

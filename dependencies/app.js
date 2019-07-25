@@ -18,7 +18,7 @@ function app(
         inquirer
             .prompt(mainMenuOptions)
             .then(function (data) {
-                const commandOption = data.command;
+                const commandOption = data.command.split(' (')[0];
                 const commandName = commandDictionary[commandOption];
 
                 commandFactory(commandName)([], displayMenu);
