@@ -7,8 +7,6 @@ function app(
     mainMenuOptions
 ) {
 
-    // const parsedCommand = cliParser.parseMainCommands(mainCliOptions);
-    // console.log(parsedCommand);
     const {
         command,
         commandArgs
