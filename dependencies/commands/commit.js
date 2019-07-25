@@ -50,7 +50,7 @@ function commit(
             .then(function () {
                 commitBuilder.build(args)();
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.log('Unable to complete commit:', error.message)
             });
     }
@@ -74,6 +74,12 @@ function commit(
             });
     }
 
+    function selectFileAddMethod(parsedCommitData) {
+        return Boolean(parsedCommitData['by-filename'])
+            ? 'Selected files'
+            : 'All files';
+    }
+
     function commitDirectly(args) {
         const parsedCommitData = cliParser
             .parseSecondaryCommands(
@@ -81,9 +87,7 @@ function commit(
                 args
             );
 
-        const fileAddMethod = Boolean(parsedCommitData['by-filename'])
-                ? 'Selected files'
-                : 'All files';
+        const fileAddMethod = selectFileAddMethod(parsedCommitData);
 
         commitFiles({
             message: parsedCommitData._unknown[0],
