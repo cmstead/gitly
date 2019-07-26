@@ -4,6 +4,7 @@ function commit(
     commitCliOptions,
     commitBuilder,
     menuService,
+    staticActions,
     uncommittedFileService
 ) {
 
@@ -45,7 +46,7 @@ function commit(
         }
     }
 
-    function commitFiles(args, onComplete = () => null) {
+    function commitFiles(args, onComplete = staticActions.doNothing) {
         const addFileAction = chooseFileAddAction(args.fileAddMethod);
 
         addFileAction()
@@ -121,7 +122,7 @@ function commit(
         });
     }
 
-    function commit(args, onComplete = () => null) {
+    function commit(args, onComplete = staticActions.doNothing) {
         const argsAreSet = args !== undefined && args.length > 0;
         const commitMethod = argsAreSet ? commitDirectly : commitByMenu;
 

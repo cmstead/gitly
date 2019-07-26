@@ -1,8 +1,9 @@
 function status(
-    statusBuilder
+    statusBuilder,
+    staticActions
 ) {
 
-    function status(_, onComplete = () => null) {
+    function status(_, onComplete = staticActions.doNothing) {
         const result = statusBuilder.build({ showOutput: true })();
 
         console.log(result);

@@ -1,9 +1,11 @@
 function app(
+    clear,
     cliParser,
     commandDictionary,
     commandFactory,
     mainCliOptions,
-    menuService
+    menuService,
+    staticActions
 ) {
 
     const {
@@ -18,26 +20,30 @@ function app(
     function runCommand(commandOption) {
         const commandName = commandDictionary[commandOption];
 
-        commandFactory(commandName)([], displayMenu);
+        commandFactory(commandName)([], () => displayMenu({}));
 
-    }
-
-    function exit() {
-        console.log('See you next time!');
-        process.exit(0);
     }
 
     function executeSelectedCommand(data) {
         commandOption = getSelectionValue(data);
         const isExitCommand = commandOption.toLowerCase() === 'exit';
         const commandAction = isExitCommand
-            ? exit
+            ? staticActions.exit
             : runCommand;
 
         commandAction(commandOption);
     }
 
-    function displayMenu() {
+    function displayMenu({ firstRun = false }) {
+        clear();
+
+        if(firstRun) {
+            console.log('Gitly -- The friendly git utility\n');
+        }
+
+        console.log('Main menu');
+        console.log('---------\n')
+
         menuService.showMainMenu()
             .then(executeSelectedCommand)
             .catch(function (error) {
@@ -50,7 +56,7 @@ function app(
         if (typeof command === 'string') {
             commandFactory(command)(commandArgs);
         } else {
-            displayMenu();
+            displayMenu({ firstRun: true });
         }
     }
 

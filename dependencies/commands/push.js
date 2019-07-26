@@ -1,8 +1,9 @@
 function push(
-    pushBuilder
+    pushBuilder,
+    staticActions
 ) {
 
-    function push(args, onComplete = () => null) {
+    function push(args, onComplete = staticActions.doNothing) {
         pushBuilder.build(args)();
         onComplete();
     }

@@ -1,8 +1,9 @@
 function pull(
-    pullBuilder
+    pullBuilder,
+    staticActions
 ) {
 
-    function pull(args, onComplete = () => null) {
+    function pull(args, onComplete = staticActions.doNothing) {
         pullBuilder.build(args)();
         onComplete();
     }

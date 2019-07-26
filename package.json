@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/cmstead/gitly#readme",
   "dependencies": {
+    "clear": "^0.1.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.0.2",
     "dject": "^1.14.2",

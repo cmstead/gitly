@@ -1,5 +1,6 @@
 function menuService(
     inquirer,
+    staticActions,
 
     commitOptions,
     mainMenuOptions,
@@ -18,8 +19,28 @@ function menuService(
         return inquirer.prompt(uncommittedFileSelectOptions);
     }
 
+    function showPauseMenu(mainMenuReturn) {
+        return inquirer
+        .prompt(pauseMenuOptions)
+        .then(function(data) {
+            const isExit = data.returnOrExit === 'Exit';
+            const nextAction = isExit
+                ? staticActions.exit
+                : mainMenuReturn;
+
+            nextAction();
+        });
+    }
+
+    function pauseMenu(mainMenuReturn) {
+        if(mainMenuReturn !== staticActions.doNothing) {
+            showPauseMenu(mainMenuReturn);
+        }
+    }
+
     return {
-        showMainMenu: showMainMenu,
+        pauseMenu,
+        showMainMenu,
         showCommitOptions,
         selectUncommittedFiles
     };
