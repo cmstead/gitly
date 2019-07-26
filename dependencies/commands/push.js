@@ -4,6 +4,7 @@ function push(
 
     function push(args, onComplete = () => null) {
         pushBuilder.build(args)();
+        onComplete();
     }
 
     return push;

@@ -6,6 +6,8 @@ function status(
         const result = statusBuilder.build({ showOutput: true })();
 
         console.log(result);
+
+        onComplete();
     }
 
     return status;

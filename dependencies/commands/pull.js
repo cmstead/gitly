@@ -4,6 +4,7 @@ function pull(
 
     function pull(args, onComplete = () => null) {
         pullBuilder.build(args)();
+        onComplete();
     }
 
     return pull;
