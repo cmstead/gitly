@@ -9,7 +9,7 @@ function commitOptions() {
         },
         {
             name: 'commitSelected',
-            message: 'Commit:',
+            message: 'Choose method to save (commit) files:',
             type: 'list',
             choices: [
                 'All files (default behavior)',
