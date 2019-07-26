@@ -2,41 +2,15 @@ function commit(
     addBuilder,
     cliParser,
     commitCliOptions,
-    commitOptions,
     commitBuilder,
-    inquirer,
-    statusBuilder,
-    uncommittedFileSelect
+    menuService,
+    uncommittedFileService
 ) {
 
-    function isNotAdded(fileInfo) {
-        return (/[m\?]/i).test(fileInfo[1]);
-    }
-
-    function getAllUnaddedFiles() {
-        const statusOptions = {
-            short: true,
-            showCommand: false
-        };
-
-        const uncommittedFiles = statusBuilder.build(statusOptions)();
-        const uncommittedTokens = uncommittedFiles.split(/(\r\n|\r|\n)/ig);
-
-        return uncommittedTokens
-            .filter(isNotAdded)
-            .map(filePath => filePath.slice(3))
-            .filter(filePath => filePath !== '');
-    }
-
     function addSelectedFiles() {
-        const unaddedFiles = getAllUnaddedFiles();
-
         console.log('Committing files by filename');
 
-        uncommittedFileSelect[0].choices = unaddedFiles;
-
-        return inquirer
-            .prompt(uncommittedFileSelect)
+        return menuService.selectUncommittedFiles()
             .then(function (data) {
                 addBuilder.build({ files: data.selectedFiles })();
             });
@@ -59,7 +33,9 @@ function commit(
     }
 
     function extendedCommitAction(args) {
-        if(args.commitByFileDiff && getAllUnaddedFiles().length > 0) {
+        const allUnaddedFiles = uncommittedFileService.getUnstagedFiles();
+
+        if (args.commitByFileDiff && allUnaddedFiles.length > 0) {
             console.log('Loading new files to commit...');
 
             args.commitByFileDiff = undefined;
@@ -84,7 +60,7 @@ function commit(
 
     function getCommitOptions() {
         console.log('\n');
-        return inquirer.prompt(commitOptions);
+        return menuService.showCommitOptions();
     }
 
     function buildCommitOptions(data) {
