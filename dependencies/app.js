@@ -34,7 +34,7 @@ function app(
             ? exit
             : runCommand;
 
-        commandAction(commandOption, displayMenu);
+        commandAction(commandOption);
     }
 
     function displayMenu() {

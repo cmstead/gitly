@@ -45,13 +45,14 @@ function commit(
         }
     }
 
-    function commitFiles(args) {
+    function commitFiles(args, onComplete = () => null) {
         const addFileAction = chooseFileAddAction(args.fileAddMethod);
 
         addFileAction()
             .then(function () {
                 commitBuilder.build(args)();
                 extendedCommitAction(args);
+                onComplete();
             })
             .catch(function (error) {
                 console.log('Unable to complete commit:', error.message)
@@ -83,7 +84,7 @@ function commit(
             .then(function (data) {
                 const options = buildCommitOptions(data);
 
-                commitFiles(options);
+                commitFiles(options, onComplete);
             })
             .catch(function (error) {
                 console.log('An error occurred while committing your files: ', error.message);
