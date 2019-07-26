@@ -23,17 +23,18 @@ function app(
     }
 
     function exit() {
+        console.log('See you next time!');
         process.exit(0);
     }
 
     function executeSelectedCommand(data) {
         commandOption = getSelectionValue(data);
-        const isExitCommand = commandOption === 'exit';
+        const isExitCommand = commandOption.toLowerCase() === 'exit';
         const commandAction = isExitCommand
             ? exit
             : runCommand;
 
-        commandAction(commandOption);
+        commandAction(commandOption, displayMenu);
     }
 
     function displayMenu() {
