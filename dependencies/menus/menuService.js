@@ -4,6 +4,7 @@ function menuService(
 
     commitOptions,
     mainMenuOptions,
+    pauseMenuOptions,
     uncommittedFileSelectOptions
 ) {
 
