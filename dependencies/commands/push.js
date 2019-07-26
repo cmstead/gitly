@@ -1,11 +1,13 @@
 function push(
+    menuService,
     pushBuilder,
     staticActions
 ) {
 
     function push(args, onComplete = staticActions.doNothing) {
         pushBuilder.build(args)();
-        onComplete();
+
+        menuService.pauseMenu(onComplete);
     }
 
     return push;

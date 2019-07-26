@@ -1,4 +1,5 @@
 function status(
+    menuService,
     statusBuilder,
     staticActions
 ) {
@@ -8,7 +9,7 @@ function status(
 
         console.log(result);
 
-        onComplete();
+        menuService.pauseMenu(onComplete);
     }
 
     return status;

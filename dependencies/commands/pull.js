@@ -1,11 +1,13 @@
 function pull(
+    menuService,
     pullBuilder,
     staticActions
 ) {
 
     function pull(args, onComplete = staticActions.doNothing) {
         pullBuilder.build(args)();
-        onComplete();
+
+        menuService.pauseMenu(onComplete);
     }
 
     return pull;

@@ -53,7 +53,8 @@ function commit(
             .then(function () {
                 commitBuilder.build(args)();
                 extendedCommitAction(args);
-                onComplete();
+
+                menuService.pauseMenu(onComplete);
             })
             .catch(function (error) {
                 console.log('Unable to complete commit:', error.message)
