@@ -1,10 +1,12 @@
 function commandFactory(
+    clone,
     commit,
     pull,
     push,
     status
 ) {
     const commandRunners = {
+        clone,
         commit,
         pull,
         push,

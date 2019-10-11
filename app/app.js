@@ -12,6 +12,9 @@ function app(
         command,
         commandArgs
     } = cliParser.parseMainCommands(mainCliOptions);
+    const returnToMenu = () => displayMenu({});
+    const pauseAndReturnToMenu = () =>
+        menuService.showPauseMenu(returnToMenu);
 
     function getSelectionValue(data) {
         return data.command.split(' (')[0];
@@ -20,7 +23,7 @@ function app(
     function runCommand(commandOption) {
         const commandName = commandDictionary[commandOption];
 
-        commandFactory(commandName)([], () => displayMenu({}));
+        commandFactory(commandName)([], pauseAndReturnToMenu);
 
     }
 

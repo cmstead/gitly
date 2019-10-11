@@ -2,7 +2,7 @@ function menuService(
     inquirer,
     staticActions,
 
-    commitOptions,
+    commitMenuOptions,
     mainMenuOptions,
     pauseMenuOptions,
     uncommittedFileSelectOptions
@@ -13,7 +13,7 @@ function menuService(
     }
 
     function showCommitOptions() {
-        return inquirer.prompt(commitOptions);
+        return inquirer.prompt(commitMenuOptions);
     }
 
     function selectUncommittedFiles() {

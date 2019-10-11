@@ -15,6 +15,10 @@ function mainCliOptions() {
         {
             name: 'status',
             default: true
+        },
+        {
+            name: 'clone',
+            default: true
         }
     ];
 }

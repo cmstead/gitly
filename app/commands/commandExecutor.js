@@ -1,4 +1,4 @@
-function commandExecutor(childProcess) {
+function commandExecutor(processService) {
 
     function executeCommand(command, stdioOption) {
         let options = {
@@ -9,7 +9,7 @@ function commandExecutor(childProcess) {
             options.stdio = stdioOption;
         }
 
-        return childProcess.execSync(command, options);
+        return processService.execSync(command, options);
     }
 
     function displayCommand(command) {

@@ -1,4 +1,4 @@
-function commitOptions() {
+function commitMenuOptions() {
     return [
         {
             name: 'commitTitle',
@@ -20,4 +20,4 @@ function commitOptions() {
     ];
 }
 
-module.exports = commitOptions;
+module.exports = commitMenuOptions;
