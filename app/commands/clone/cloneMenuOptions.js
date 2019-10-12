@@ -24,11 +24,11 @@ function cloneMenuOptions(
         ];
     }
 
-    function getAccountNameOptions() {
+    function getUsernameOptions() {
         return [
             {
-                name: 'accountName',
-                message: 'Which account are you cloning from?'
+                name: 'username',
+                message: 'What is the username are you cloning from?'
             }
         ];
     }
@@ -45,10 +45,10 @@ function cloneMenuOptions(
     return {
         cloneTypes,
 
-        getAccountNameOptions,
         getCloneUriOptions,
         getMainMenuOptions,
-        getRepoListOptions
+        getRepoListOptions,
+        getUsernameOptions
     }
 }
 

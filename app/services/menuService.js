@@ -1,12 +1,12 @@
 function menuService(
     inquirer,
     staticActions,
-
     commitMenuOptions,
     mainMenuOptions,
     pauseMenuOptions,
     uncommittedFileSelectOptions
 ) {
+
 
     function showMainMenu() {
         return inquirer.prompt(mainMenuOptions);
@@ -17,7 +17,8 @@ function menuService(
     }
 
     function selectUncommittedFiles() {
-        return inquirer.prompt(uncommittedFileSelectOptions);
+        return inquirer
+    .prompt(uncommittedFileSelectOptions());
     }
 
     function showPauseMenu(mainMenuReturn) {

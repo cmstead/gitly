@@ -8,6 +8,7 @@ function app(
     staticActions
 ) {
 
+
     const {
         command,
         commandArgs

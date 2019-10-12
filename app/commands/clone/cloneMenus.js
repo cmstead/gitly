@@ -13,9 +13,24 @@ function cloneMenus (
         return inquirer.prompt(options);
     }
 
+    function getGithubUsername() {
+        const options = cloneMenuOptions.getUsernameOptions();
+
+        return inquirer.prompt(options);
+    }
+
+    function getGithubRepo(repoDictionary) {
+        const options = cloneMenuOptions
+            .getRepoListOptions(Object.keys(repoDictionary));
+
+        return inquirer.prompt(options);
+    }
+
     return {
         getCloneType,
-        getCloneUri
+        getCloneUri,
+        getGithubRepo,
+        getGithubUsername
     };
 }
 

@@ -5,6 +5,7 @@ function commandFactory(
     push,
     status
 ) {
+
     const commandRunners = {
         clone,
         commit,
