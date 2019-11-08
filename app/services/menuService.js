@@ -42,6 +42,7 @@ function menuService(
 
     return {
         pauseMenu,
+        showPauseMenu,
         showMainMenu,
         showCommitOptions,
         selectUncommittedFiles
