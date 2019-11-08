@@ -12,6 +12,10 @@ function mainCliOptions() {
             name: 'push',
             default: true
         },
+        // {
+        //     name: 'stash',
+        //     default: true
+        // },
         {
             name: 'status',
             default: true
