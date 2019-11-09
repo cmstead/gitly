@@ -5,6 +5,7 @@ function commandDictionary() {
         'Upload latest changes to remote': 'push',
         // 'Temporarily save/retrieve changes': 'stash',
         'Show save status of edited files': 'status',
+        'Manage and use branches': 'branch',
         'Copy an existing repo online': 'clone'
     };
 }

@@ -1,4 +1,5 @@
 function commandFactory(
+    branch,
     clone,
     commit,
     pull,
@@ -7,6 +8,7 @@ function commandFactory(
 ) {
 
     const commandRunners = {
+        branch,
         clone,
         commit,
         pull,

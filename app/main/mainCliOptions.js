@@ -1,6 +1,10 @@
 function mainCliOptions() {
     return [
         {
+            name: 'branch',
+            default: true
+        },
+        {
             name: 'commit',
             default: true
         },
