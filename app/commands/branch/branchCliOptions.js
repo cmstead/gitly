@@ -6,6 +6,14 @@ function branchCliOptions () {
             type: Boolean
         },
         {
+            name: 'checkout',
+            type: Boolean
+        },
+        {
+            name: 'add',
+            type: Boolean
+        },
+        {
             name: 'all',
             alias: 'a',
             type: Boolean

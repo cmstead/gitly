@@ -1,6 +1,8 @@
 function branch(
     addBranch,
+    branchConstants,
     branchCliOptions,
+    branchMenus,
     checkoutBranch,
     cliParser,
     showBranchList,
@@ -14,11 +16,30 @@ function branch(
                 args
             );
 
-        console.log(Object.keys(parsedBranchData));
-
-        if (parsedBranchData.list) {
+        if (parsedBranchData.add) {
+            checkoutBranch.checkoutBranch(parsedBranchData._unknown[0]);
+        } else if (parsedBranchData.list) {
             showBranchList.listBranches(Object.keys(parsedBranchData));
+        } else if (parsedBranchData.checkout) {
+            checkoutBranch.checkoutBranch(parsedBranchData._unknown[0]);
         }
+    }
+
+    function commitByMenu(_, onComplete) {
+        branchMenus
+            .showMainBranchMenu()
+            .then(function (data) {
+                const branchArgs = [];
+                const subcommand = branchConstants[data.subcommand];
+
+                branchArgs.push(`--${subcommand}`);
+
+                performBranchAction(branchArgs);
+                
+                console.log('');
+
+                onComplete();
+            });
     }
 
     function branch(args, onComplete = staticActions.doNothing) {
@@ -27,7 +48,7 @@ function branch(
         if (argsAreDefined) {
             performBranchAction(args);
         } else {
-            onComplete();
+            commitByMenu(null, onComplete);
         }
     }
 
