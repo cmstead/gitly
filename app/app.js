@@ -28,10 +28,14 @@ function app(
 
     }
 
+    function isExitCommand(commandOption) {
+        return commandOption.trim() === ''
+            || commandOption.toLowerCase() === 'exit';
+    }
+
     function executeSelectedCommand(data) {
         commandOption = getSelectionValue(data);
-        const isExitCommand = commandOption.toLowerCase() === 'exit';
-        const commandAction = isExitCommand
+        const commandAction = isExitCommand(commandOption)
             ? staticActions.exit
             : runCommand;
 
@@ -41,7 +45,7 @@ function app(
     function displayMenu({ firstRun = false }) {
         clear();
 
-        if(firstRun) {
+        if (firstRun) {
             console.log('Gitly -- The friendly git utility\n');
         }
 

@@ -1,12 +1,16 @@
 function commandDictionary() {
     return {
-        'Save your changes to git': 'commit',
         'Get latest changes from remote': 'pull',
         'Upload latest changes to remote': 'push',
-        // 'Temporarily save/retrieve changes': 'stash',
+        'separator1': 'separator',
+        'Save your changes to git': 'commit',
         'Show save status of edited files': 'status',
+        'separator2': 'separator',
         'Manage and use branches': 'branch',
-        'Copy an existing repo online': 'clone'
+        'Copy an existing repo online': 'clone',
+        // 'Temporarily save/retrieve changes': 'stash',
+        'Exit': 'Exit',
+        ' ': ' '
     };
 }
 
