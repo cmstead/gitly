@@ -14,6 +14,10 @@ function branchCliOptions () {
             type: Boolean
         },
         {
+            name: 'delete',
+            type: Boolean
+        },
+        {
             name: 'all',
             alias: 'a',
             type: Boolean

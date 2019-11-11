@@ -25,9 +25,17 @@ function branchMenuOptions (
         }
     ];
 
+    const deleteOptions = [
+        {
+            name: 'branchName',
+            message: 'What is the name of the branch you want to delete?'
+        }
+    ];
+
     return {
         addOptions,
         checkoutOptions,
+        deleteOptions,
         mainBranchOptions
     };
 }

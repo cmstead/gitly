@@ -18,9 +18,15 @@ function branchMenus(
             .prompt(branchMenuOptions.addOptions);
     }
 
+    function showDeleteMenu() {
+        return inquirer
+            .prompt(branchMenuOptions.deleteOptions);
+    }
+
     return {
         showAddMenu,
         showCheckoutMenu,
+        showDeleteMenu,
         showMainBranchMenu
     };
 }

@@ -5,6 +5,7 @@ function branch(
     branchMenus,
     checkoutBranch,
     cliParser,
+    deleteBranch,
     showBranchList,
     staticActions
 ) {
@@ -41,6 +42,22 @@ function branch(
         }
     }
 
+    function getDeleteOptions(commandOptionData) {
+        if (
+            commandOptionData._unknown
+            && commandOptionData._unknown.length > 0
+        ) {
+            return Promise.resolve(commandOptionData);
+        } else {
+            return branchMenus
+                .showDeleteMenu()
+                .then(function (data) {
+                    commandOptionData._unknown = [data.branchName];
+                    return Promise.resolve(commandOptionData);
+                });
+        }
+    }
+
     function performBranchAction(args, onComplete) {
         const parsedBranchData = cliParser
             .parseSecondaryCommands(
@@ -69,7 +86,17 @@ function branch(
                     onComplete();
                 });
 
-        } else if (parsedBranchData.list) {
+        } else if(parsedBranchData.delete) {
+            getDeleteOptions(parsedBranchData)
+                .then(function (commandOptions) {
+                    const branchName = commandOptions._unknown[0];
+
+                    deleteBranch.deleteBranch(branchName);
+
+                    onComplete();
+                });
+
+        }else {
             const commandKeys = Object.keys(parsedBranchData);
 
             showBranchList.listBranches(commandKeys);

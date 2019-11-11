@@ -34,9 +34,14 @@ function branchCommandBuilder () {
         return baseCheckoutCommand.concat(branchName);
     }
 
+    function getBranchDeleteCommandTokens(branchName) {
+        return baseBranchCommand.concat(branchName);
+    }
+
     return {
         getBranchAddCommandTokens,
         getBranchCheckoutCommandTokens,
+        getBranchDeleteCommandTokens,
         getBranchListCommandTokens
     };
 }
