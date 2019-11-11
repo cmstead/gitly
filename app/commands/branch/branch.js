@@ -9,19 +9,72 @@ function branch(
     staticActions
 ) {
 
-    function performBranchAction(args) {
+    function getCheckoutOptions(commandOptionData) {
+        if (
+            commandOptionData._unknown
+            && commandOptionData._unknown.length > 0
+        ) {
+            return Promise.resolve(commandOptionData);
+        } else {
+            return branchMenus
+                .showCheckoutMenu()
+                .then(function (data) {
+                    commandOptionData._unknown = [data.branchName];
+                    return Promise.resolve(commandOptionData);
+                });
+        }
+    }
+
+    function getAddOptions(commandOptionData) {
+        if (
+            commandOptionData._unknown
+            && commandOptionData._unknown.length > 0
+        ) {
+            return Promise.resolve(commandOptionData);
+        } else {
+            return branchMenus
+                .showAddMenu()
+                .then(function (data) {
+                    commandOptionData._unknown = [data.branchName];
+                    return Promise.resolve(commandOptionData);
+                });
+        }
+    }
+
+    function performBranchAction(args, onComplete) {
         const parsedBranchData = cliParser
             .parseSecondaryCommands(
                 branchCliOptions,
                 args
             );
 
+
         if (parsedBranchData.add) {
-            checkoutBranch.checkoutBranch(parsedBranchData._unknown[0]);
-        } else if (parsedBranchData.list) {
-            showBranchList.listBranches(Object.keys(parsedBranchData));
+            getAddOptions(parsedBranchData)
+                .then(function (commandOptions) {
+                    const branchName = commandOptions._unknown[0];
+
+                    addBranch.addBranch(branchName);
+
+                    onComplete();
+                });
+
         } else if (parsedBranchData.checkout) {
-            checkoutBranch.checkoutBranch(parsedBranchData._unknown[0]);
+            getCheckoutOptions(parsedBranchData)
+                .then(function (commandOptions) {
+                    const branchName = commandOptions._unknown[0];
+
+                    checkoutBranch.checkoutBranch(branchName);
+
+                    onComplete();
+                });
+
+        } else if (parsedBranchData.list) {
+            const commandKeys = Object.keys(parsedBranchData);
+
+            showBranchList.listBranches(commandKeys);
+
+            onComplete();
         }
     }
 
@@ -34,11 +87,7 @@ function branch(
 
                 branchArgs.push(`--${subcommand}`);
 
-                performBranchAction(branchArgs);
-                
-                console.log('');
-
-                onComplete();
+                performBranchAction(branchArgs, onComplete);
             });
     }
 
@@ -46,7 +95,7 @@ function branch(
         const argsAreDefined = Array.isArray(args) && args.length > 0;
 
         if (argsAreDefined) {
-            performBranchAction(args);
+            performBranchAction(args, onComplete);
         } else {
             commitByMenu(null, onComplete);
         }

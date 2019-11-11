@@ -22,6 +22,7 @@ function menuService(
     }
 
     function showPauseMenu(mainMenuReturn) {
+        console.log('');
         return inquirer
         .prompt(pauseMenuOptions)
         .then(function(data) {

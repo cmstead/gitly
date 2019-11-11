@@ -1,17 +1,17 @@
-function branchUtils (
+function branchUtils(
     listBranches
 ) {
-    
+
     function doesBranchExist(branchName) {
-        const branchData = listBranches.listAllBranches();
+        const branchData = listBranches.listAllBranches({});
         const branchPattern = new RegExp(`${branchName}$`, 'i');
 
         function isMatchingBranch(branchRecord) {
-            return branchRecord.branchName
-                .test(branchPattern);
+            return branchPattern
+                .test(branchRecord.branchName);
         }
 
-        return branchData.find(isMatchingBranch) !== null;
+        return Boolean(branchData.find(isMatchingBranch));
 
     }
 

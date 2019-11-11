@@ -34,7 +34,7 @@ function listBranches(
 
     function listAllBranches() {
         return loadBranchData({
-            showAll
+            showAll: true
         });
     }
 

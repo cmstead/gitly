@@ -8,7 +8,19 @@ function branchMenus(
             .prompt(branchMenuOptions.mainBranchOptions);
     }
 
+    function showCheckoutMenu() {
+        return inquirer
+            .prompt(branchMenuOptions.checkoutOptions);
+    }
+
+    function showAddMenu() {
+        return inquirer
+            .prompt(branchMenuOptions.addOptions);
+    }
+
     return {
+        showAddMenu,
+        showCheckoutMenu,
         showMainBranchMenu
     };
 }

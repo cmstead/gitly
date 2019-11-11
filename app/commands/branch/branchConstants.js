@@ -1,9 +1,9 @@
 function branchConstants () {
 
     return {
-        // 'Add a branch (--add)': 'add',
-        'List all branches (--list)': 'list',
-        // 'Check out a branch (--checkout)': 'checkout'
+        'Create a branch (--add)': 'add',
+        'Check out a branch (--checkout)': 'checkout',
+        'List all branches (--list)': 'list'
     };
 }
 

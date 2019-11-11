@@ -4,7 +4,6 @@ function branchParser () {
 
     function getBranchInfo(token) {
         return token
-            .trim()
             .match(branchInfoPattern)
             .slice(1);
     }
