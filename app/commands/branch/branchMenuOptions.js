@@ -1,13 +1,21 @@
-function branchMenuOptions (
-    branchConstants
+function branchMenuOptions(
+    branchConstants,
+    inquirer
 ) {
-    
+
+    const mainMenuOptions = Object
+        .keys(branchConstants)
+        .map(option =>
+            option === 'separator'
+                ? new inquirer.Separator()
+                : option);
+
     const mainBranchOptions = [
         {
             name: 'subcommand',
             message: 'What branch action do you want to take?',
             type: 'list',
-            choices: Object.keys(branchConstants)
+            choices: mainMenuOptions
         }
     ];
 

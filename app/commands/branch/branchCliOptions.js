@@ -26,6 +26,11 @@ function branchCliOptions () {
             name: 'remote',
             alias: 'r',
             type: Boolean
+        },
+        {
+            name: 'current',
+            alias: 'c',
+            type: Boolean
         }
     ];
 }
