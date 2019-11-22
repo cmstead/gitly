@@ -15,7 +15,7 @@ function branchCommandBuilder () {
         showRemote = false
     }) {
 
-        let finalCommand = baseBranchCommand;
+        let finalCommand = baseBranchCommand.slice(0);
 
         if (showAll) {
             finalCommand.push('-a');

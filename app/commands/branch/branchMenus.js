@@ -1,7 +1,26 @@
 function branchMenus(
     branchMenuOptions,
+    showBranchList,
     inquirer
 ) {
+
+    function parseBranches(branches) {
+        const branchLines = branches.split('\n');
+
+        return branchLines
+            .map(line => line.substr(2).trim())
+            .filter(line => !line.includes('->') && line !== '');
+    }
+
+    function getBranchList() {
+        const branchOutput = showBranchList.listBranches({
+            flags: [],
+            stdioOption: 'pipe',
+            showCommand: false
+        });
+
+        return parseBranches(branchOutput);
+    }
 
     function showMainBranchMenu() {
         return inquirer
@@ -9,6 +28,9 @@ function branchMenus(
     }
 
     function showCheckoutMenu() {
+        branchMenuOptions
+            .checkoutOptions[0].choices = getBranchList();
+
         return inquirer
             .prompt(branchMenuOptions.checkoutOptions);
     }
@@ -19,6 +41,10 @@ function branchMenus(
     }
 
     function showDeleteMenu() {
+
+        branchMenuOptions
+            .deleteOptions[0].choices = getBranchList();
+
         return inquirer
             .prompt(branchMenuOptions.deleteOptions);
     }

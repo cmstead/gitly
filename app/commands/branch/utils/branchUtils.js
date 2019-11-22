@@ -2,8 +2,16 @@ function branchUtils(
     listBranches
 ) {
 
+    function getBranchList() {
+        return listBranches.listAllBranches({
+            flags: ['all'],
+            stdioOption: 'pipe',
+            showCommand: false
+        });
+    }
+
     function doesBranchExist(branchName) {
-        const branchData = listBranches.listAllBranches({});
+        const branchData = getBranchList();
         const branchPattern = new RegExp(`${branchName}$`, 'i');
 
         function isMatchingBranch(branchRecord) {

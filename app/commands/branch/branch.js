@@ -99,7 +99,9 @@ function branch(
         }else {
             const commandKeys = Object.keys(parsedBranchData);
 
-            showBranchList.listBranches(commandKeys);
+            showBranchList.listBranches({
+                flags: commandKeys
+            });
 
             onComplete();
         }

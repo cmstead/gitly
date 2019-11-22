@@ -6,7 +6,9 @@ function listBranches(
 
     function loadBranchData({
         showAll = false,
-        showRemote = false
+        showRemote = false,
+        stdioOption = 'inherit',
+        showCommand = true
     }) {
         const commandTokens = branchCommandBuilder
             .getBranchListCommandTokens({
@@ -15,26 +17,44 @@ function listBranches(
             });
 
         const branchOutput = commandExecutor({
-            commandTokens
+            commandTokens,
+            stdioOption,
+            showCommand
         })();
 
         return branchParser.getBranchData(branchOutput);
 
     }
 
-    function listLocalBranches() {
-        return loadBranchData({});
-    }
-
-    function listRemoteBranches() {
+    function listLocalBranches({
+        stdioOption = 'inherit',
+        showCommand = true
+    }) {
         return loadBranchData({
-            showRemote: true
+            stdioOption,
+            showCommand
         });
     }
 
-    function listAllBranches() {
+    function listRemoteBranches({
+        stdioOption = 'inherit',
+        showCommand = true
+    }) {
         return loadBranchData({
-            showAll: true
+            showRemote: true,
+            stdioOption,
+            showCommand
+        });
+    }
+
+    function listAllBranches({
+        stdioOption = 'inherit',
+        showCommand = true
+    }) {
+        return loadBranchData({
+            showAll: true,
+            stdioOption,
+            showCommand
         });
     }
 

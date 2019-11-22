@@ -15,15 +15,23 @@ function showBranchList(
         return options;
     }
 
-    function listBranches(flags) {
-        const stdioOption = 'inherit';
+    function listBranches({
+        flags,
+        stdioOption,
+        showCommand
+    }) {
+        const finalStdioOption = stdioOption 
+            ? stdioOption
+            : 'inherit';
+
         const branchListOptions = getBranchListOptions(flags);
         const commandTokens = branchCommandBuilder
             .getBranchListCommandTokens(branchListOptions);
         
-        commandExecutor({
+        return commandExecutor({
             commandTokens,
-            stdioOption
+            stdioOption: finalStdioOption,
+            showCommand
         })();
     }
 

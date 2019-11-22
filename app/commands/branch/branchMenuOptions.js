@@ -14,7 +14,9 @@ function branchMenuOptions (
     const checkoutOptions = [
         {
             name: 'branchName',
-            message: 'Which branch do you want to check out?'
+            message: 'Which branch do you want to check out?',
+            type: 'list',
+            choices: []
         }
     ];
 
@@ -28,7 +30,9 @@ function branchMenuOptions (
     const deleteOptions = [
         {
             name: 'branchName',
-            message: 'What is the name of the branch you want to delete?'
+            message: 'Which branch you want to delete?',
+            type: 'list',
+            choices: []
         }
     ];
 
