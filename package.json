@@ -1,6 +1,6 @@
 {
   "name": "@cmstead/gitly",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Gitly is a wrapper over the Git CLI to friendlify day-to-day git interaction",
   "main": "index.js",
   "bin": {
