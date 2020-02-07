@@ -35,6 +35,14 @@ function branchMenus(
             .prompt(branchMenuOptions.checkoutOptions);
     }
 
+    function showMergeMenu() {
+        branchMenuOptions
+            .mergeOptions[0].choices = getBranchList();
+
+        return inquirer
+            .prompt(branchMenuOptions.mergeOptions);
+    }
+
     function showAddMenu() {
         return inquirer
             .prompt(branchMenuOptions.addOptions);
@@ -53,7 +61,8 @@ function branchMenus(
         showAddMenu,
         showCheckoutMenu,
         showDeleteMenu,
-        showMainBranchMenu
+        showMainBranchMenu,
+        showMergeMenu
     };
 }
 

@@ -44,11 +44,21 @@ function branchMenuOptions(
         }
     ];
 
+    const mergeOptions = [
+        {
+            name: 'branchName',
+            message: 'Which branch you want to merge?',
+            type: 'list',
+            choices: []
+        }
+    ];
+
     return {
         addOptions,
         checkoutOptions,
         deleteOptions,
-        mainBranchOptions
+        mainBranchOptions,
+        mergeOptions
     };
 }
 

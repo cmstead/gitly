@@ -7,6 +7,7 @@ function branch(
     cliParser,
     currentBranch,
     deleteBranch,
+    mergeBranch,
     showBranchList,
     staticActions
 ) {
@@ -59,6 +60,22 @@ function branch(
         }
     }
 
+    function getMergeOptions(commandOptionData) {
+        if (
+            commandOptionData._unknown
+            && commandOptionData._unknown.length > 0
+        ) {
+            return Promise.resolve(commandOptionData);
+        } else {
+            return branchMenus
+                .showMergeMenu()
+                .then(function (data) {
+                    commandOptionData._unknown = [data.branchName];
+                    return Promise.resolve(commandOptionData);
+                });
+        }
+    }
+
     function performBranchAction(args, onComplete) {
         const parsedBranchData = cliParser
             .parseSecondaryCommands(
@@ -93,6 +110,16 @@ function branch(
                     const branchName = commandOptions._unknown[0];
 
                     deleteBranch.deleteBranch(branchName);
+
+                    onComplete();
+                });
+
+        } else if (parsedBranchData.merge) {
+            getMergeOptions(parsedBranchData)
+                .then(function (commandOptions) {
+                    const branchName = commandOptions._unknown[0];
+
+                    mergeBranch.mergeBranchBranch(branchName);
 
                     onComplete();
                 });

@@ -18,6 +18,10 @@ function branchCliOptions () {
             type: Boolean
         },
         {
+            name: 'merge',
+            type: Boolean
+        },
+        {
             name: 'all',
             alias: 'a',
             type: Boolean

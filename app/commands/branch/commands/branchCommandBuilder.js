@@ -5,6 +5,11 @@ function branchCommandBuilder () {
         'branch'
     ];
 
+    const baseMergeCommand = [
+        'git',
+        'merge'
+    ];
+
     const baseCheckoutCommand = [
         'git',
         'checkout'
@@ -38,11 +43,16 @@ function branchCommandBuilder () {
         return baseBranchCommand.concat(branchName);
     }
 
+    function getBranchMergeCommandTokens(branchName) {
+        return baseMergeCommand.concat(branchName);
+    }
+
     return {
         getBranchAddCommandTokens,
         getBranchCheckoutCommandTokens,
         getBranchDeleteCommandTokens,
-        getBranchListCommandTokens
+        getBranchListCommandTokens,
+        getBranchMergeCommandTokens
     };
 }
 
