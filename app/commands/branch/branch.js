@@ -119,7 +119,7 @@ function branch(
                 .then(function (commandOptions) {
                     const branchName = commandOptions._unknown[0];
 
-                    mergeBranch.mergeBranchBranch(branchName);
+                    mergeBranch.mergeBranch(branchName);
 
                     onComplete();
                 });
