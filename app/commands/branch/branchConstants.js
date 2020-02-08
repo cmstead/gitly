@@ -7,7 +7,8 @@ function branchConstants () {
         'Check out a branch (--checkout)': 'checkout',
         'Merge out a branch (--merge)': 'merge',
         'Create a branch (--add)': 'add',
-        'Delete a branch (--delete)': 'delete'
+        'Delete a branch (--delete)': 'delete',
+        'Exit Branch Menu': 'exit'
     };
 }
 

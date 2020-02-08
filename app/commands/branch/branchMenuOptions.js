@@ -53,9 +53,18 @@ function branchMenuOptions(
         }
     ];
 
+    const continueBranchWork = [
+        {
+            name: 'continueBranchWork',
+            message: 'Continue working on branches?',
+            type: 'confirm'
+        }
+    ];
+
     return {
         addOptions,
         checkoutOptions,
+        continueBranchWork,
         deleteOptions,
         mainBranchOptions,
         mergeOptions

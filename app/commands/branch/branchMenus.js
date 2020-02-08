@@ -57,9 +57,15 @@ function branchMenus(
             .prompt(branchMenuOptions.deleteOptions);
     }
 
+    function showContinueBranchWorkMenu() {
+        return inquirer
+            .prompt(branchMenuOptions.continueBranchWork);
+    }
+
     return {
         showAddMenu,
         showCheckoutMenu,
+        showContinueBranchWorkMenu,
         showDeleteMenu,
         showMainBranchMenu,
         showMergeMenu

@@ -128,8 +128,9 @@ function branch(
             currentBranch.showCurrentBranch();
 
             onComplete();
-        }
-        else {
+        } else if (args.includes('--exit')) {
+            onComplete();
+        } else {
             const commandKeys = Object.keys(parsedBranchData);
 
             showBranchList.listBranches({
@@ -153,13 +154,27 @@ function branch(
             });
     }
 
+    function branchByMenuAndPause(onComplete) {
+        branchByMenu(null, function () {
+            branchMenus
+                .showContinueBranchWorkMenu()
+                .then(function (data) {
+                    if(data.continueBranchWork) {
+                        branchByMenuAndPause(onComplete);
+                    } else {
+                        onComplete();
+                    }
+                });
+        });
+    }
+
     function branch(args, onComplete = staticActions.doNothing) {
         const argsAreDefined = Array.isArray(args) && args.length > 0;
 
         if (argsAreDefined) {
             performBranchAction(args, onComplete);
         } else {
-            branchByMenu(null, onComplete);
+            branchByMenuAndPause(onComplete);
         }
     }
 
